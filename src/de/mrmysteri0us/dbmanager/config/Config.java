@@ -1,6 +1,6 @@
 package de.mrmysteri0us.dbmanager.config;
 
-import de.mrmysteri0us.dbmanager.DBManager;
+import de.mrmysteri0us.dbmanager.DBManagerPlugin;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -14,13 +14,13 @@ import java.util.Map;
  * Created by robin on 01/11/2014
  */
 public class Config {
-    private DBManager           plugin;
+    private DBManagerPlugin     plugin;
     private File                configFile;
     private Yaml                configYaml;
     private Map<String, String> configMap;
 
     public Config(File configFile) {
-        plugin = DBManager.getInstance();
+        plugin = DBManagerPlugin.getInstance();
         this.configFile = configFile;
         this.configYaml = new Yaml();
 

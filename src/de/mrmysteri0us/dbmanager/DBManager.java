@@ -1,37 +1,33 @@
 package de.mrmysteri0us.dbmanager;
 
-import org.apache.logging.log4j.Logger;
-import org.spongepowered.api.event.SpongeEventHandler;
-import org.spongepowered.api.event.state.PreInitializationEvent;
-import org.spongepowered.api.event.state.ServerStoppingEvent;
-import org.spongepowered.api.plugin.Plugin;
+import de.mrmysteri0us.dbmanager.config.Config;
 
 /**
  * Created by robin on 01/11/2014
+ * TODO -> TESTING REQUIRED!
  */
-
-@Plugin(id = "DBManager", name = "DBManager", version = "1.0")
 public class DBManager {
-    private static DBManager instance;
-    private Logger log;
+    private DBManagerPlugin plugin;
+    private Config          config;
 
-    @SpongeEventHandler
-    public void onInit(PreInitializationEvent event) {
-        instance = this;
-        log = event.getPluginLog();
-        log.info("Plugin enabled.");
+    public DBManager() {
+        plugin = DBManagerPlugin.getInstance();
+        config = plugin.getConfig();
     }
 
-    @SpongeEventHandler
-    public void onStop(ServerStoppingEvent event) {
-        log.info("Plugin disabled.");
+    public String getUsername(String database) {
+        return config.getValue(database + ".username");
     }
 
-    public static DBManager getInstance() {
-        return instance;
+    public String getPassword(String database) {
+        return config.getValue(database + ".password");
     }
 
-    public Logger getLog() {
-        return log;
+    public String getHost(String database) {
+        return config.getValue(database + ".host");
+    }
+
+    public int getPort(String database) {
+        return config.getInt(database + ".port");
     }
 }
