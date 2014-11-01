@@ -15,19 +15,23 @@ public class DBManager {
         config = plugin.getConfig();
     }
 
-    public String getUsername(String database) {
-        return config.getValue(database + ".username");
+    public String getDatabase() {
+        return config.getValue("database");
     }
 
-    public String getPassword(String database) {
-        return config.getValue(database + ".password");
+    public String getUsername() {
+        return config.getValue("username");
     }
 
-    public String getHost(String database) {
-        return config.getValue(database + ".host");
+    public String getPassword() {
+        return config.getValue("password");
     }
 
-    public int getPort(String database) {
-        return config.getInt(database + ".port");
+    public String getHost(String pluginName) {
+        return config.getValue("host");
+    }
+
+    public int getPort(String pluginName) {
+        return config.getInt("port");
     }
 }
