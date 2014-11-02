@@ -1,5 +1,5 @@
 /*
-By kourbou & MrMysteri0us
+By kourbou, TBotV63 & MrMysteri0us
 */
 
 apply plugin: 'java'
@@ -7,10 +7,12 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    'log4j:log4j:1.2.17'
-    'org.yaml:snakeyaml:1.5'
+    compile project(':sponge')
+    compile 'org.apache.logging.log4j:log4j:2.1'
+    compile 'org.yaml:snakeyaml:1.14'
 }
+
