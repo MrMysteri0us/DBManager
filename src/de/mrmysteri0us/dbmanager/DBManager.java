@@ -33,12 +33,11 @@ import java.util.Map;
  * Created by robin on 01/11/2014
  */
 public class DBManager {
-    private DBManagerPlugin     plugin;
     private Config              config;
     private Map<String, Config> exceptions;
 
     public DBManager() {
-        plugin = DBManagerPlugin.getInstance();
+        DBManagerPlugin plugin = DBManagerPlugin.getInstance();
         config = plugin.getConfig();
         exceptions = plugin.getExceptions();
     }

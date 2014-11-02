@@ -43,7 +43,6 @@ import java.util.Map;
 @Plugin(id = "DBManager", name = "DBManager", version = "1.1_0")
 public class DBManagerPlugin {
     private static DBManagerPlugin instance;
-    private File                pluginDirectory;
     private Logger              log;
     private Config              config;
     private Config              configExceptions;
@@ -54,8 +53,8 @@ public class DBManagerPlugin {
         log = event.getPluginLog();
         log.info("Plugin loading.");
         instance = this;
-        pluginDirectory = event.getConfigurationDirectory();
         exceptions = new HashMap<String, Config>();
+        File pluginDirectory = event.getConfigurationDirectory();
         config = new Config(new File(pluginDirectory, "config.yml"));
         configExceptions = new Config(new File(pluginDirectory, "exceptions.yml"));
 
