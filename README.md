@@ -8,6 +8,22 @@ Request Thread: http://forums.spongepowered.org/t/database-manager-db-manager/41
 If you would like to have things in the code changed, feel free to open a pull request.<br>
 If you have questions, feel free to comment on my code or pm me on Sponge.<br>
 
+## Setup
+__Note:__ If you do not have [Gradle] installed then use ./gradlew for Unix systems or Git Bash and gradlew.bat for Windows systems in place of any 'gradle' command.
+
+__For [Eclipse]__  
+  1. Run `gradle setupDecompWorkspace --refresh-dependencies`  
+  2. Make sure you have the Gradle plugin installed (Help > Eclipse Marketplace > Gradle Integration Plugin)  
+  3. Import Sponge as a Gradle project (File > Import)
+  4. Select the root folder for Sponge and click **Build Model**
+  5. Check Sponge when it finishes building and click **Finish**
+
+__For [IntelliJ]__  
+  1. Run `gradle setupDecompWorkspace --refresh-dependencies`  
+  2. Make sure you have the Gradle plugin enabled (File > Settings > Plugins).  
+  3. Click File > Import Module and select the **build.gradle** file for Sponge.
+
+
 License
 =======
 The MIT License (MIT)<br>
@@ -29,3 +45,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN<br>
 THE SOFTWARE.
+
+[Eclipse]: http://www.eclipse.org/
+[Gradle]: http://www.gradle.org/
+[IntelliJ]: http://www.jetbrains.com/idea/
