@@ -25,6 +25,7 @@ THE SOFTWARE.
 package de.mrmysteri0us.dbmanager;
 
 import de.mrmysteri0us.dbmanager.config.Config;
+import org.spongepowered.api.plugin.Plugin;
 
 import java.util.Map;
 
@@ -42,43 +43,64 @@ public class DBManager {
         exceptions = plugin.getExceptions();
     }
 
-    public String getDatabase(String pluginName) {
-        if(exceptions.containsKey(pluginName)) {
+    public String getDatabase(Object plugin) {
+        String pluginName = getPluginName(plugin);
+
+        if(exceptions.containsKey(pluginName) && pluginName != null) {
             return exceptions.get(pluginName).getValue("database");
         }
 
         return config.getValue("database");
     }
 
-    public String getUsername(String pluginName) {
-        if(exceptions.containsKey(pluginName)) {
+    public String getUsername(Object plugin) {
+        String pluginName = getPluginName(plugin);
+
+        if(exceptions.containsKey(pluginName) && pluginName != null) {
             return exceptions.get(pluginName).getValue("username");
         }
 
         return config.getValue("username");
     }
 
-    public String getPassword(String pluginName) {
-        if(exceptions.containsKey(pluginName)) {
+    public String getPassword(Object plugin) {
+        String pluginName = getPluginName(plugin);
+
+        if(exceptions.containsKey(pluginName) && pluginName != null) {
             return exceptions.get(pluginName).getValue("password");
         }
 
         return config.getValue("password");
     }
 
-    public String getHost(String pluginName) {
-        if(exceptions.containsKey(pluginName)) {
+    public String getHost(Object plugin) {
+        String pluginName = getPluginName(plugin);
+
+        if(exceptions.containsKey(pluginName) && pluginName != null) {
             return exceptions.get(pluginName).getValue("host");
         }
 
         return config.getValue("host");
     }
 
-    public int getPort(String pluginName) {
-        if(exceptions.containsKey(pluginName)) {
+    public int getPort(Object plugin) {
+        String pluginName = getPluginName(plugin);
+
+        if(exceptions.containsKey(pluginName) && pluginName != null) {
             return exceptions.get(pluginName).getInt("port");
         }
 
         return config.getInt("port");
+    }
+
+    private String getPluginName(Object plugin) {
+        Class pluginClass = plugin.getClass();
+
+        if(pluginClass.isAnnotationPresent(Plugin.class)) {
+            Plugin annotation = (Plugin) pluginClass.getAnnotation(Plugin.class);
+            return annotation.name();
+        }
+
+        return null;
     }
 }
