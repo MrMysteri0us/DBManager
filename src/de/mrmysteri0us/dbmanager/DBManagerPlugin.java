@@ -42,28 +42,28 @@ import java.util.Map;
 
 @Plugin(id = "DBManager", name = "DBManager", version = "1.1_0")
 public class DBManagerPlugin {
-    private static DBManagerPlugin instance;
-    private Logger              log;
-    private Config              config;
-    private Config              configExceptions;
-    private Map<String, Config> exceptions;
+    private static DBManagerPlugin  instance;
+    private Logger                  log;
+    private Config                  config;
+    private Config                  exceptionConfig;
+    private Map<String, Config>     exceptionMap;
 
     @SpongeEventHandler
     public void onInit(PreInitializationEvent event) {
         log = event.getPluginLog();
         log.info("Plugin loading.");
         instance = this;
-        exceptions = new HashMap<String, Config>();
+        exceptionMap = new HashMap<String, Config>();
         File pluginDirectory = event.getConfigurationDirectory();
         config = new Config(new File(pluginDirectory, "config.yml"));
-        configExceptions = new Config(new File(pluginDirectory, "exceptions.yml"));
+        exceptionConfig = new Config(new File(pluginDirectory, "exceptions.yml"));
 
         try {
             config.load();
-            configExceptions.load();
+            exceptionConfig.load();
 
-            for(String s : configExceptions.getMap().keySet()) {
-                exceptions.put(s, new Config(new File(pluginDirectory, configExceptions.getMap().get(s))));
+            for(String s : exceptionConfig.getMap().keySet()) {
+                exceptionMap.put(s, new Config(new File(pluginDirectory, exceptionConfig.getMap().get(s))));
             }
         } catch(IOException e) {
             e.printStackTrace();
@@ -89,11 +89,11 @@ public class DBManagerPlugin {
         return config;
     }
 
-    public Config getConfigExceptions() {
-        return configExceptions;
+    public Config getExceptionConfig() {
+        return exceptionConfig;
     }
 
-    public Map<String, Config> getExceptions() {
-        return exceptions;
+    public Map<String, Config> getExceptionMap() {
+        return exceptionMap;
     }
 }

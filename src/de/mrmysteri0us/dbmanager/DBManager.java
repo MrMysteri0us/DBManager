@@ -25,28 +25,48 @@ THE SOFTWARE.
 package de.mrmysteri0us.dbmanager;
 
 import de.mrmysteri0us.dbmanager.config.Config;
+import de.mrmysteri0us.dbmanager.mysql.MySQLManager;
 import org.spongepowered.api.plugin.Plugin;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by robin on 01/11/2014
  */
 public class DBManager {
-    private Config              config;
-    private Map<String, Config> exceptions;
+    private static DBManager        instance;
+    private Config                  config;
+    private Map<String, Config>     exceptionMap;
+    private Map<String, Connection> connectionMap;
+    private MySQLManager            mysqlManager;
 
-    public DBManager() {
+    private DBManager() throws Exception {
         DBManagerPlugin plugin = DBManagerPlugin.getInstance();
         config = plugin.getConfig();
-        exceptions = plugin.getExceptions();
+        exceptionMap = plugin.getExceptionMap();
+        connectionMap = new HashMap<String, Connection>();
+        mysqlManager = new MySQLManager(this);
+        mysqlManager.setup();
+
+        connectionMap.put("default", mysqlManager.getConnection(null));
+    }
+
+    public static DBManager getInstance() throws Exception {
+        if(instance == null) {
+            instance = new DBManager();
+        }
+
+        return instance;
     }
 
     public String getDatabase(Object plugin) {
         String pluginName = getPluginName(plugin);
 
-        if(exceptions.containsKey(pluginName) && pluginName != null) {
-            return exceptions.get(pluginName).getValue("database");
+        if(exceptionMap.containsKey(pluginName) && pluginName != null) {
+            return exceptionMap.get(pluginName).getValue("database");
         }
 
         return config.getValue("database");
@@ -55,8 +75,8 @@ public class DBManager {
     public String getUsername(Object plugin) {
         String pluginName = getPluginName(plugin);
 
-        if(exceptions.containsKey(pluginName) && pluginName != null) {
-            return exceptions.get(pluginName).getValue("username");
+        if(exceptionMap.containsKey(pluginName) && pluginName != null) {
+            return exceptionMap.get(pluginName).getValue("username");
         }
 
         return config.getValue("username");
@@ -65,8 +85,8 @@ public class DBManager {
     public String getPassword(Object plugin) {
         String pluginName = getPluginName(plugin);
 
-        if(exceptions.containsKey(pluginName) && pluginName != null) {
-            return exceptions.get(pluginName).getValue("password");
+        if(exceptionMap.containsKey(pluginName) && pluginName != null) {
+            return exceptionMap.get(pluginName).getValue("password");
         }
 
         return config.getValue("password");
@@ -75,8 +95,8 @@ public class DBManager {
     public String getHost(Object plugin) {
         String pluginName = getPluginName(plugin);
 
-        if(exceptions.containsKey(pluginName) && pluginName != null) {
-            return exceptions.get(pluginName).getValue("host");
+        if(exceptionMap.containsKey(pluginName) && pluginName != null) {
+            return exceptionMap.get(pluginName).getValue("host");
         }
 
         return config.getValue("host");
@@ -85,11 +105,25 @@ public class DBManager {
     public int getPort(Object plugin) {
         String pluginName = getPluginName(plugin);
 
-        if(exceptions.containsKey(pluginName) && pluginName != null) {
-            return exceptions.get(pluginName).getInt("port");
+        if (exceptionMap.containsKey(pluginName) && pluginName != null) {
+            return exceptionMap.get(pluginName).getInt("port");
         }
 
         return config.getInt("port");
+    }
+
+    public Connection getConnection(Object plugin) throws SQLException {
+        String pluginName = getPluginName(plugin);
+
+        if(exceptionMap.containsKey(pluginName)) {
+            if(!connectionMap.containsKey(pluginName)) {
+                connectionMap.put(pluginName, mysqlManager.getConnection(plugin));
+            }
+
+            return connectionMap.get(pluginName);
+        }
+
+        return connectionMap.get("default");
     }
 
     private String getPluginName(Object plugin) {
