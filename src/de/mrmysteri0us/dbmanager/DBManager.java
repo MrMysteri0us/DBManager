@@ -29,7 +29,6 @@ import de.mrmysteri0us.dbmanager.mysql.MySQLManager;
 import org.spongepowered.api.plugin.Plugin;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,7 +111,12 @@ public class DBManager {
         return config.getInt("port");
     }
 
-    public Connection getConnection(Object plugin) throws SQLException {
+    public Connection getConnection(Object plugin) throws Exception {
+        if(!shouldUseMysql(plugin)) {
+            Exception up = new Exception("Plugin tries to access .getConnection(), but is not configured to use MySQL.");
+            throw up;
+        }
+
         String pluginName = getPluginName(plugin);
 
         if(exceptionMap.containsKey(pluginName)) {
@@ -124,6 +128,16 @@ public class DBManager {
         }
 
         return connectionMap.get("default");
+    }
+
+    public boolean shouldUseMysql(Object plugin) {
+        String pluginName = getPluginName(plugin);
+
+        if (exceptionMap.containsKey(pluginName) && pluginName != null) {
+            return exceptionMap.get(pluginName).getBoolean("mysql");
+        }
+
+        return config.getBoolean("mysql");
     }
 
     private String getPluginName(Object plugin) {

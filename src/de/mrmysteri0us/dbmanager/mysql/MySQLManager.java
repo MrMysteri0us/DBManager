@@ -23,7 +23,7 @@ public class MySQLManager {
     }
 
     public Connection getConnection(Object plugin) throws SQLException {
-        String url = "";
+        String url;
         String database = dbManager.getDatabase(plugin);
         String username = dbManager.getUsername(plugin);
         String password = dbManager.getPassword(plugin);
