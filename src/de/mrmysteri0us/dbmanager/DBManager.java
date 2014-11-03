@@ -50,7 +50,9 @@ public class DBManager {
         mysqlManager = new MySQLManager(this);
         mysqlManager.setup();
 
-        connectionMap.put("default", mysqlManager.getConnection(null));
+        if(shouldUseMysql(null)) {
+            connectionMap.put("default", mysqlManager.getConnection(null));
+        }
     }
 
     public static DBManager getInstance() throws Exception {
