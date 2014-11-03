@@ -40,7 +40,7 @@ import java.util.Map;
  * Created by robin on 01/11/2014
  */
 
-@Plugin(id = "DBManager", name = "DBManager", version = "1.1_0")
+@Plugin(id = "DBManager", name = "DBManager", version = "1.2_0")
 public class DBManagerPlugin {
     private static DBManagerPlugin  instance;
     private Logger                  log;
