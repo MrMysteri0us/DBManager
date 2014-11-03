@@ -2,9 +2,22 @@
 By kourbou, TBotV63 & MrMysteri0us
 */
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.10.0'
+	}
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+apply plugin: 'license'
+
+ext.name = 'DBManager'
+ext.author = 'MrMysteri0us'
 
 repositories {
     jcenter()
@@ -16,3 +29,21 @@ dependencies {
     compile 'org.yaml:snakeyaml:1.14'
 }
 
+//Processing
+
+license {
+	ext.name = project.name
+	ext.author = project.author
+	ext.year = Calendar.getInstance().get(Calendar.YEAR)
+
+    header rootProject.file('HEADER.txt')
+
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
+
+processResources {
+
+	from 'LICENSE.txt'
+}
