@@ -143,6 +143,10 @@ public class DBManager {
     }
 
     private String getPluginName(Object plugin) {
+        if(plugin == null) {
+            return null;
+        }
+
         Class pluginClass = plugin.getClass();
 
         if(pluginClass.isAnnotationPresent(Plugin.class)) {
