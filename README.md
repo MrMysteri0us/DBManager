@@ -8,6 +8,13 @@ Request Thread: http://forums.spongepowered.org/t/database-manager-db-manager/41
 If you would like to have things in the code changed, feel free to open a pull request.<br>
 If you have questions, feel free to comment on my code or pm me on Sponge.<br>
 
+## Clone
+The following steps will ensure your project is cloned properly.  
+1. `git clone git@github.com:SpongePowered/Sponge.git`  
+2. `cd Sponge`  
+3. `git submodule update --init --recursive`  
+4. `cp scripts/pre-commit .git/hooks`
+
 ## Setup
 __Note:__ If you do not have [Gradle] installed then use ./gradlew for Unix systems or Git Bash and gradlew.bat for Windows systems in place of any 'gradle' command.
 
