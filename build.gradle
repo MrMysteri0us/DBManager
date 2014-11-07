@@ -3,9 +3,6 @@ By kourbou, TBotV63 & MrMysteri0us
 */
 
 buildscript {
-    repositories {
-        jcenter()
-    }
     dependencies {
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.10.0'
     }
@@ -18,6 +15,10 @@ apply plugin: 'license'
 
 ext.name = 'DBManager'
 ext.author = 'MrMysteri0us'
+
+repositories {
+    jcenter()
+}
 
 dependencies {
     compile project(':sponge')
