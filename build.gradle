@@ -8,9 +8,6 @@ buildscript {
     }
     dependencies {
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.10.0'
-        compile project(':sponge')
-        compile 'org.apache.logging.log4j:log4j:2.1'
-        compile 'org.yaml:snakeyaml:1.14'
     }
 }
 
@@ -21,6 +18,12 @@ apply plugin: 'license'
 
 ext.name = 'DBManager'
 ext.author = 'MrMysteri0us'
+
+dependencies {
+	compile project(':sponge')
+    compile 'org.apache.logging.log4j:log4j:2.1'
+   	compile 'org.yaml:snakeyaml:1.14'
+}
 
 //Processing
 
@@ -37,6 +40,5 @@ license {
 }
 
 processResources {
-
 	from 'LICENSE.txt'
 }
