@@ -20,17 +20,17 @@ ext.name = 'DBManager'
 ext.author = 'MrMysteri0us'
 
 dependencies {
-	compile project(':sponge')
+    compile project(':sponge')
     compile 'org.apache.logging.log4j:log4j:2.1'
-   	compile 'org.yaml:snakeyaml:1.14'
+    compile 'org.yaml:snakeyaml:1.14'
 }
 
 //Processing
 
 license {
-	ext.name = project.name
-	ext.author = project.author
-	ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = project.name
+    ext.author = project.author
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
 
     header rootProject.file('HEADER.txt')
 
@@ -40,5 +40,5 @@ license {
 }
 
 processResources {
-	from 'LICENSE.txt'
+    from 'LICENSE.txt'
 }
