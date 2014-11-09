@@ -15,9 +15,12 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'license'
+apply plugin: 'maven'
 
 ext.name = 'DBManager'
 ext.author = 'MrMysteri0us'
+group = 'de.mrmysteri0us'
+version = '1.2'
 
 repositories {
     jcenter()
