@@ -47,7 +47,7 @@ public class DBManagerPlugin {
     private Config                  exceptionConfig;
     private Map<String, Config>     exceptionMap;
 
-    @SpongeEventHandler
+    @Subscribe
     public void onInit(PreInitializationEvent event) {
         log = event.getPluginLog();
         log.info("Plugin loading.");
@@ -71,7 +71,7 @@ public class DBManagerPlugin {
         log.info("Plugin enabled.");
     }
 
-    @SpongeEventHandler
+    @Subscribe
     public void onStop(ServerStoppingEvent event) {
         log.info("Plugin disabled.");
     }
